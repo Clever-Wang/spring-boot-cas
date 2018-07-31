@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.wangsaichao.cas.config.SpringConfig,\
+  com.wangsaichao.cas.config.DataSourceConfig,\
+  com.wangsaichao.cas.config.ShiroAuthenticationConfiguration
