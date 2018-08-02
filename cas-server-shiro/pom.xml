@@ -115,16 +115,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.36</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.jasig.cas</groupId>
-            <artifactId>cas-server-core-authentication</artifactId>
-            <version>4.2.7</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-core-util</artifactId>
-            <version>${cas.version}</version>
-        </dependency>-->
     </dependencies>
 
     <properties>
