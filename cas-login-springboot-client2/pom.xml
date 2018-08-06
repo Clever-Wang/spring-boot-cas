@@ -4,7 +4,7 @@
     <groupId>iamlabs.unicon.net</groupId>
     <artifactId>cas-login-springboot-client2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>cas-login-springboot-client2</name>
     <description>A sample web application that exercises the CAS protocol features via the Java CAS Client.</description>
   
@@ -95,46 +95,8 @@
             </plugin>
             <!-- 打jar包的插件 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
-                            <!-- 程序启动入口 -->
-                            <mainClass>com.wangsaichao.cas.Application</mainClass>
-                        </manifest>
-                        <manifestEntries>
-                            <!-- 将lib包抽到上一层文件夹中, classpathPrefix属性是包名-->
-                            <Class-Path>./</Class-Path>
-                        </manifestEntries>
-                    </archive>
-                    <excludes>
-                        <!-- 将config/**抽离出来 -->
-                        <exclude>config/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <!-- not append assembly id in release file name -->
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptors>
-                        <!-- 注意这里的路径 -->
-                        <descriptor>src/main/build/package.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
