@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 数据源druid -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <!-- 以下是有关连接池的配置： -->
+        <!-- 最大连接数量 -->
+        <property name="maxActive" value="90" />
+        <!-- 程序初始化连接的数量： -->
+        <property name="initialSize" value="30"/>
+        <!-- 程序中最小空闲连接数  -->
+        <property name="minIdle" value="20" />
+        <!-- 连接等待超时时间 单位为毫秒 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒，这里是五分钟 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <!-- 使用非公平锁获取连接 -->
+        <property name="useUnfairLock" value="true"/>
+        <!-- 用来检测连接是否有效的sql，要求是一个查询语句-->
+        <property name="validationQuery" value="select 'x'" />
+        <!-- 申请连接的时候检测 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+        <property name="testOnBorrow" value="false" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能  -->
+        <property name="testOnReturn" value="false" />
+    </bean>
+
+    <!-- 2. mybatis的SqlSession的工厂: SqlSessionFactoryBean  dataSource / typeAliasesPackage   	-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--自动扫描指定包下的mapper.xml文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    </bean>
+
+    <!--3. mybatis配置扫描器 : MapperScannerConfigurer sqlSessionFactory / basePackage -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描指定包以及它的子包下的所有映射接口类-->
+        <property name="basePackage" value="com.wangsaichao.cas.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- enable transaction annotation support -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
