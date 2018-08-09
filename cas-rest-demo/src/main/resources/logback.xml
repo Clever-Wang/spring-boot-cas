@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="LOG_HOME" value="logs/" />
+    <property name="FILE_NAME" value="cas-login-spring-client1" />
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <!-- [%X{requestId}] 为从MDC中读出的 requestId 变量 -->
+            <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %logger{35} [%X{requestId}] %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${FILE_NAME}.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <!-- 文件扩展名设置为.zip/.gz后在文件滚动时会自动对旧日志进行压缩 -->
+            <FileNamePattern>${LOG_HOME}/${FILE_NAME}.%d{yyyyMMdd}.%i.log.zip</FileNamePattern>
+            <!-- 除按日志记录之外，还配置了日志文件不能超过500M，若超过500M，日志文件会以索引0开始,命名日志文件，例如log-error-2013-12-21.0.log -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <!-- [%X{requestId}] 为从MDC中读出的 requestId 变量 -->
+            <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %logger{35} [%X{requestId}] %-5level %msg%n</pattern>
+        </encoder>
+        <prudent>false</prudent>
+    </appender>
+
+    <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/debug/${FILE_NAME}_debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <!-- 文件扩展名设置为.zip/.gz后在文件滚动时会自动对旧日志进行压缩 -->
+            <FileNamePattern>${LOG_HOME}/debug/${FILE_NAME}_debug.%d{yyyyMMdd}.%i.log.zip</FileNamePattern>
+            <!-- 除按日志记录之外，还配置了日志文件不能超过500M，若超过500M，日志文件会以索引0开始,命名日志文件，例如log-error-2013-12-21.0.log -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <!-- [%X{requestId}] 为从MDC中读出的 requestId 变量 -->
+            <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %logger [%X{requestId}] %-5level %msg%n</pattern>
+        </encoder>
+        <prudent>false</prudent>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <!--<logger name="org.apache" level="ERROR"/>-->
+    <!--<logger name="org.mybatis" level="ERROR"/>-->
+    <!--<logger name="org.springframework" level="ERROR"/>-->
+    <!--<logger name="org.jboss" level="ERROR"/>-->
+    <!--<logger name="javax" level="ERROR"/>-->
+    <!--<logger name="com.fasterxml" level="ERROR"/>-->
+    <!--<logger name="com.alibaba" level="WARN" />-->
+    <!--<logger name="httpclient" level="ERROR" />-->
+
+    <root>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_DEBUG"/>
+    </root>
+
+</configuration>
