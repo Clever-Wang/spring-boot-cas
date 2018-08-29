@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title th:text="${#themes.code('cas.page.title')}"></title>
+    <link rel="stylesheet" th:href="@{${#themes.code('cas.myself.css')}}"/>
+    <script th:src="@{${#themes.code('cas.javascript.file')}}"></script>
+</head>
+
+<body>
+<h2 th:text="${#themes.code('cas.page.title')}"></h2>
+<div>
+    <form method="post" th:object="${credential}">
+        <div th:if="${#fields.hasErrors('*')}">
+            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}" style="color: red" />
+        </div>
+        <h4 th:utext="#{screen.welcome.instructions}"></h4>
+        <section class="row">
+            <label for="username" th:utext="#{screen.welcome.label.netid}" />
+            <div th:unless="${openIdLocalId}">
+                <input class="required" id="username" size="25" tabindex="1" type="text"
+                       th:disabled="${guaEnabled}"
+                       th:field="*{username}"
+                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                       autocomplete="off"
+                       th:value="admin" />
+            </div>
+        </section>
+        <section class="row">
+            <label for="password" th:utext="#{screen.welcome.label.password}"/>
+            <div>
+                <input class="required" type="password" id="password" size="25" tabindex="2"
+                       th:accesskey="#{screen.welcome.label.password.accesskey}"
+                       th:field="*{password}"
+                       autocomplete="off"
+                       th:value="123456" />
+            </div>
+        </section>
+        <section>
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <input type="hidden" name="_eventId" value="submit" />
+            <input type="hidden" name="geolocation" />
+            <input class="btn btn-submit btn-block" name="submit" accesskey="l" th:value="#{screen.welcome.button.login}" tabindex="6" type="submit" />
+        </section>
+    </form>
+</div>
+</body>
+</html>
