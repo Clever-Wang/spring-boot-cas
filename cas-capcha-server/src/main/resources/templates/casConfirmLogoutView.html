@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title th:text="#{screen.logout.confirm.header}">Confirm Logout View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+</head>
+
+<body>
+<main role="main" class="container mt-3 mb-3">
+    <div layout:fragment="content">
+        <div class="alert alert-info">
+            <h2>Do you want to log out completely?</h2>
+            <p>
+            确认退出将结束你的会话,跳转到登录页面。
+            </p>
+            <p><br>你确认退出吗?</p>
+
+            <div align="center">
+                <form method="post" id="fm1">
+                    <input type="hidden" name="LogoutRequestConfirmed" value="true"/>
+                    <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                    <input type="hidden" name="_eventId" value="success"/>
+                    <input class="btn btn-primary"
+                           name="success"
+                           accesskey="l"
+                           th:value="#{screen.welcome.button.logout}"
+                           value="Logout"
+                           type="submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
