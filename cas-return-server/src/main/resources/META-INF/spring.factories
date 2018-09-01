@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.wangsaichao.cas.config.SpringConfig,\
+  com.wangsaichao.cas.config.RememberMeConfiguration,\
+  com.wangsaichao.cas.config.CaptchaWebflowConfiguration,\
+  com.wangsaichao.cas.config.DataSourceConfig
