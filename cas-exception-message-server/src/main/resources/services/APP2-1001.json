@@ -1,0 +1,9 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^(https|imaps|http)://app2.cas.com.*",
+  "name" : "测试客户端app2",
+  "id" : 1001,
+  "description" : "这是app2的客户端",
+  "evaluationOrder" : 11,
+  "theme" : "app2"
+}
