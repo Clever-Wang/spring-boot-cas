@@ -109,7 +109,7 @@
             <artifactId>cas-server-webapp-session-redis</artifactId>
             <version>${cas.version}</version>
         </dependency>
-        <!--连接池  -->
+        <!--连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
